@@ -185,6 +185,21 @@ inv shortMonth:
 
 
 --------------------------------------------------------------------------------------------------
--- TO DO --
+context Group
+inv constraint1:
+self.hotel ->forAll(h:Hotel |self.Hotel->select(h2:Hotel|h1.city=h2.city)->size()<=2)
 
+---------------------------------------------------------------------------------------
+context Hotel
+inv constraint2:
+self.rate>1 and self.rate<5
 
+inv constraint4:
+self.Room->forAll(r: Room | self.Room->select(r2:Room |r2=r1)->size()=0)
+
+--------------------------------------------------------------------------------------
+context Booking
+inv constraint3:
+self.Reservation.requestDate==self.date
+
+---------------------------------------------------

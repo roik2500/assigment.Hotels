@@ -15,6 +15,14 @@ public class Reservation implements  ITestable {
         requestDate = reqDate;
     }
 
+    // my code---> constrain 3
+    public boolean sameHotelReservationBooking(){
+        for(Room r: this.roomCategory.getRooms()){
+            if(r.getHotel()!= this.booking.getRoom().getHotel()){return false;}
+        }
+        return true;
+    }
+
     public void setReservationSet(ReservationSet reservationSet){
         this.reservationSet = reservationSet;
     }

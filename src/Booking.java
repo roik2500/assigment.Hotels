@@ -16,10 +16,7 @@ public class Booking implements  ITestable{
     }
 
     // my code--> constraint 3
-    public boolean SameDateRequestDate(){
-        if(this.date==this.reservation.getRequestDate()){return true;}
-        return false;
-    }
+
 
 
     public void addService(HotelService s){

@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class Hotel implements  ITestable{
     private String name;
@@ -18,23 +19,15 @@ public class Hotel implements  ITestable{
         rooms = new HashMap<Integer,Room>();
         allReservation = new HashMap<Client, ReservationSet>();
         services = new HashMap<Service, HotelService>();
-
     }
 
-    //my code--constrain 2
-    public boolean rate(){
-        if(this.rate>5){return false;}
-        if(this.rate<1){return false;}
-        return true;
-    }
 
-    // my code-->constrain 4
+    // my code-->constrain 11
     public boolean UniqeRoomNumber(){
-        for(Room r1:this.rooms.values()){
-            int number=r1.getNumber();
-            for(Room r2:this.rooms.values()){
-                if(r2.getNumber()==number){return false;}
-            }
+        HashSet<String> name= new HashSet<String>();
+        for(Service s1:this.services.keySet()) {
+            if(name.contains(s1.getServiceName())){return false;}
+            name.add(s1.getServiceName());
         }
         return true;
     }
