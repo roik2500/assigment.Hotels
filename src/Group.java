@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class Group implements  ITestable{
@@ -20,7 +21,22 @@ public class Group implements  ITestable{
         }
         return true;
     }
+    //Roy Peled code---constraint 4
+    private boolean hotelsGroupService(){
+        Hotel hotel=hotels.stream().findFirst().get();
+        HashMap<Service,HotelService> serviceHashMap= hotel.getServices();
+        for (Hotel h:hotels){
+            HashMap<Service,HotelService> serviceHashMap2= h.getServices();
+            if(serviceHashMap.size()!=serviceHashMap2.size())
+                return false;
+            for (Service s: serviceHashMap.keySet()) {
+                if(!serviceHashMap2.containsKey(s))
+                    return false;
+            }
+        }
 
+        return true;
+    }
 
     public void addHotelToGroup(Hotel hotel){
         hotels.add(hotel);

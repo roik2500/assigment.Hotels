@@ -1,4 +1,5 @@
 import java.util.HashSet;
+import java.util.Set;
 
 public class RoomCategory implements  ITestable{
     HashSet<Room> rooms;
@@ -33,6 +34,18 @@ public class RoomCategory implements  ITestable{
 
     public RoomType getType() {
         return type;
+    }
+
+    //Roy Peled code---constraint 5
+    private boolean VIPCheckservice(){
+        if(type==RoomType.VIP){
+            for (Room r:rooms)
+            for(Service s: r.getHotel().getServices().keySet()){
+                if(!(s instanceof VipService))
+                    return false;
+            }
+        }
+        return true;
     }
 
     @Override
