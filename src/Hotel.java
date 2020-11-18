@@ -48,6 +48,8 @@ public class Hotel implements  ITestable{
 
     }
 
+
+
     public void addReservationSet(Client client,ReservationSet reservationSet){
         allReservation.put(client,reservationSet);
     }

@@ -21,6 +21,14 @@ public class ReservationSet implements  ITestable{
         reservations.add(reservation);
     }
 
+    public boolean constraint_16(){
+        if(hotel.getCity().equals("LAS VEGAS"))
+            if(client.getAge()<21)
+                return false;
+        return true;
+
+    }
+
 
     public Client getClient() {
         return client;
