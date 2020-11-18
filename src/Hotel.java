@@ -32,6 +32,22 @@ public class Hotel implements  ITestable{
         return true;
     }
 
+
+    //not more then 10% of vip rooms
+    public boolean constraint_14(){
+        double counter=0;
+        double sum=0;
+        for (Room r:this.rooms.values()){
+            if(r.getRoomCategory().getType()== RoomCategory.RoomType.VIP)
+                counter++;
+            sum++;
+        }
+        if(counter/sum>0.1)
+            return false;
+        return true;
+
+    }
+
     public void addReservationSet(Client client,ReservationSet reservationSet){
         allReservation.put(client,reservationSet);
     }
