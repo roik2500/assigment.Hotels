@@ -14,9 +14,6 @@ public class Room implements  ITestable{
     }
 
 
-    public boolean constraint_17(){
-        if()
-    }
 
     public void setHotel(Hotel h){ hotel = h; }
 

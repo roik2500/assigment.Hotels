@@ -17,6 +17,18 @@ public class Booking implements  ITestable{
 
     // my code--> constraint 3
 
+    //room must be in his level or higher
+    public boolean constraint_17(){
+        if(this.reservation.getRoomCategory().getType()== RoomCategory.RoomType.VIP)
+            if(this.room.getRoomCategory().getType()!= RoomCategory.RoomType.VIP)
+                return false;
+        if(this.reservation.getRoomCategory().getType()== RoomCategory.RoomType.SUITE)
+            if((this.room.getRoomCategory().getType()!= RoomCategory.RoomType.VIP)||(this.room.getRoomCategory().getType()!= RoomCategory.RoomType.SUITE))
+                return false;
+         return  true;
+
+    }
+
 
 
     public void addService(HotelService s){
