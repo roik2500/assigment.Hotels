@@ -13,6 +13,11 @@ public class Room implements  ITestable{
         bookings = new HashMap<Date,Booking>();
     }
 
+
+    public boolean constraint_17(){
+        if()
+    }
+
     public void setHotel(Hotel h){ hotel = h; }
 
     public void asignRoomCategory(RoomCategory roomCategory){
