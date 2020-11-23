@@ -34,6 +34,15 @@ public class Review implements  ITestable{
     }
 
     public static boolean checkAllIntancesConstraints(Model model){
+        Boolean isOk = true;
+        for(Object object :model.allObjects) {
+            if(object instanceof Review){
+                Review review = (Review)object;
+                isOk = isOk && review.checkConstraints();
+                if(!isOk)
+                    return false;
+            }
+        }
         return true;
     }
 

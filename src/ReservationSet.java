@@ -21,17 +21,7 @@ public class ReservationSet implements  ITestable{
         reservations.add(reservation);
     }
 
-    //if you in hotel in las vegas you must be 21 or more
-    public boolean constraint_16(){
-        if(hotel.getCity().equals("LAS VEGAS"))
-            if(client.getAge()<21)
-                return false;
-        return true;
-
-    }
-
-
-    public Client getClient() {
+   public Client getClient() {
         return client;
     }
 
@@ -49,6 +39,15 @@ public class ReservationSet implements  ITestable{
     }
 
     public static boolean checkAllIntancesConstraints(Model model){
+        Boolean isOk = true;
+        for(Object object :model.allObjects) {
+            if(object instanceof ReservationSet){
+                ReservationSet reservationSet = (ReservationSet)object;
+                isOk = isOk && reservationSet.checkConstraints();
+                if(!isOk)
+                    return false;
+            }
+        }
         return true;
     }
 }

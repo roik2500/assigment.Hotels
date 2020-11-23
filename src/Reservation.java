@@ -15,18 +15,9 @@ public class Reservation implements  ITestable {
         requestDate = reqDate;
     }
 
-    // my code---> constrain 3
-    public boolean sameHotelReservationBooking(){
-        for(Room r: this.roomCategory.getRooms()){
-            if(r.getHotel()!= this.booking.getRoom().getHotel()){return false;}
-        }
-        return true;
-    }
-
     public void setReservationSet(ReservationSet reservationSet){
         this.reservationSet = reservationSet;
     }
-
 
     public void addRoomCategory(RoomCategory roomCategory) {
         this.roomCategory = roomCategory;
@@ -61,10 +52,30 @@ public class Reservation implements  ITestable {
 
     @Override
     public boolean checkConstraints() {
+        // my code---> constrain 3
+        if(this.booking.getRoom()!=null){
+            Room room = this.booking.getRoom();
+            if(room.getHotel() != this.reservationSet.getHotel())
+                return false;
+        }
+        for (Room r : this.roomCategory.getRooms()) {
+            if (r.getHotel() != this.booking.getRoom().getHotel()) {
+                return false;
+            }
+        }
         return true;
     }
 
     public static boolean checkAllIntancesConstraints(Model model) {
+        Boolean isOk = true;
+        for(Object object :model.allObjects) {
+            if(object instanceof Reservation){
+                Reservation reservation = (Reservation)object;
+                isOk = isOk && reservation.checkConstraints();
+                if(!isOk)
+                    return false;
+            }
+        }
         return true;
     }
 

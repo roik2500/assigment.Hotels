@@ -21,57 +21,6 @@ public class Hotel implements  ITestable{
         services = new HashMap<Service, HotelService>();
     }
 
-
-    // my code-->constrain 11
-    public boolean UniqeRoomNumber(){
-        HashSet<String> name= new HashSet<String>();
-        for(Service s1:this.services.keySet()) {
-            if(name.contains(s1.getServiceName())){return false;}
-            name.add(s1.getServiceName());
-        }
-        return true;
-    }
-
-
-    //not more then 10% of vip rooms
-    public boolean constraint_14(){
-        double counter=0;
-        double sum=0;
-        for (Room r:this.rooms.values()){
-            if(r.getRoomCategory().getType()== RoomCategory.RoomType.VIP)
-                counter++;
-            sum++;
-        }
-        if(counter/sum>0.1)
-            return false;
-        return true;
-
-    }
-
-    //constrain 10
-    public boolean avaregeRank()
-    {
-        double sumRank = 0; //sum ranks from all review
-        double count = 0;  //count all reviews
-        if(this.rate != 5)
-            return false;
-        for (Room room :rooms.values())
-        {
-            for(Booking booking: room.getBookings().values())
-            {
-                if(booking.getReview() != null)
-                {
-                    sumRank += booking.getReview().getRank();
-                    count++;
-                }
-            }
-        }
-        if(!((sumRank/count) > 7.5))
-            return false;
-        return true;
-    }
-
-
     public void addReservationSet(Client client,ReservationSet reservationSet){
         allReservation.put(client,reservationSet);
     }
@@ -109,10 +58,85 @@ public class Hotel implements  ITestable{
 
     @Override
     public boolean checkConstraints() {
+        //constraint7-if you in hotel in las vegas you must be 21 or more
+        if(this.city.equals("LAS VEGAS")) {
+            for (Client client : allReservation.keySet()) {
+                if (client.getAge() < 21)
+                    return false;
+            }
+        }
+        //constraint6
+        double counter = 0;
+        double sum = 0;
+        for (Room r : this.rooms.values()) {
+            if (r.getRoomCategory().getType() == RoomCategory.RoomType.VIP)
+                counter++;
+            sum++;
+        }
+        if (counter / sum > 0.1)
+            return false;
+
+
+        //constrain 10
+        double sumRank = 0; //sum ranks from all review
+        double count = 0;  //count all reviews
+        if(this.rate != 5)
+            return false;
+        for (Room room :rooms.values())
+        {
+            for(Booking booking: room.getBookings().values())
+            {
+                if(booking.getReview() != null)
+                {
+                    sumRank += booking.getReview().getRank();
+                    count++;
+                }
+            }
+        }
+        if(!((sumRank/count) > 7.5))
+            return false;
+        //constraint 11
+        for (Service s : services.keySet()) {
+            for (Service s1 : services.keySet()) {
+                if (s1 != s && s.serviceName.equals(s1.serviceName))
+                    return false;
+            }
+        }
+        //constraint 12
+        HashSet<Integer> years = new HashSet<Integer>();
+        for (HotelService hotelService : this.services.values()) {
+            for (Booking booking : hotelService.getGivenServices()) {
+                years.add(booking.getDate().getYear() + 1900);
+            }
+        }
+        for (Integer year : years) {
+            if (revenueYear(year) <= revenueYear(year - 1))
+                return false;
+        }
         return true;
     }
 
+    private float revenueYear(int year){
+        float revenue = 0;
+        for(HotelService hotelService: this.services.values()){
+            for(Booking booking: hotelService.getGivenServices())
+                if(booking.getDate().getYear()+1900 == year){
+                    revenue +=hotelService.getPrice();
+                }
+        }
+        return revenue;
+    }
+
     public static boolean checkAllIntancesConstraints(Model model){
+        Boolean isOk = true;
+        for(Object object :model.allObjects) {
+            if(object instanceof Hotel){
+                Hotel hotel = (Hotel)object;
+                isOk = isOk && hotel.checkConstraints();
+                if(!isOk)
+                    return false;
+            }
+        }
         return true;
     }
 }

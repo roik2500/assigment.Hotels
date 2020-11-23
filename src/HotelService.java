@@ -1,27 +1,27 @@
 import java.util.HashSet;
 
-public class HotelService implements  ITestable{
+public class HotelService implements  ITestable {
     private Hotel hotel;
     private Service service;
     private int price;
     private int quality;
     private HashSet<Booking> givenServices;
 
-    public HotelService(int price, int quality){
+    public HotelService(int price, int quality) {
         givenServices = new HashSet<Booking>();
         this.price = price;
         this.quality = quality;
     }
 
-    public void setHotel(Hotel hotel){
+    public void setHotel(Hotel hotel) {
         this.hotel = hotel;
     }
 
-    public void assignService(Service service){
+    public void assignService(Service service) {
         this.service = service;
     }
 
-    public void addBooking(Booking booking){
+    public void addBooking(Booking booking) {
         givenServices.add(booking);
     }
 
@@ -52,6 +52,15 @@ public class HotelService implements  ITestable{
     }
 
     public static boolean checkAllIntancesConstraints(Model model){
+        Boolean isOk = true;
+        for(Object object :model.allObjects) {
+            if(object instanceof HotelService){
+                HotelService hotelService = (HotelService)object;
+                isOk = isOk && hotelService.checkConstraints();
+                if(!isOk)
+                    return false;
+            }
+        }
         return true;
     }
 }

@@ -15,22 +15,6 @@ public class Booking implements  ITestable{
         services = new ArrayList<HotelService>();
     }
 
-    // my code--> constraint 3
-
-    //room must be in his level or higher
-    public boolean constraint_17(){
-        if(this.reservation.getRoomCategory().getType()== RoomCategory.RoomType.VIP)
-            if(this.room.getRoomCategory().getType()!= RoomCategory.RoomType.VIP)
-                return false;
-        if(this.reservation.getRoomCategory().getType()== RoomCategory.RoomType.SUITE)
-            if((this.room.getRoomCategory().getType()!= RoomCategory.RoomType.VIP)||(this.room.getRoomCategory().getType()!= RoomCategory.RoomType.SUITE))
-                return false;
-         return  true;
-
-    }
-
-
-
     public void addService(HotelService s){
         services.add(s);
     }
@@ -71,10 +55,32 @@ public class Booking implements  ITestable{
 
     @Override
     public boolean checkConstraints() {
+        //constraint8 - room must be in his level or higher
+        if (this.reservation.getRoomCategory().getType() == RoomCategory.RoomType.VIP)
+            if (this.room.getRoomCategory().getType() != RoomCategory.RoomType.VIP)
+                return false;
+        if (this.reservation.getRoomCategory().getType() == RoomCategory.RoomType.SUITE)
+            if ((this.room.getRoomCategory().getType() != RoomCategory.RoomType.VIP) && (this.room.getRoomCategory().getType() != RoomCategory.RoomType.SUITE))
+                return false;
+        //constraint 13
+        Hotel hotel = this.reservation.getReservationSet().getHotel();
+        for(HotelService hotelService: this.services){
+            if(hotelService.getHotel() != hotel)
+                return false;
+        }
         return true;
     }
 
     public static boolean checkAllIntancesConstraints(Model model){
+        Boolean isOk = true;
+        for(Object object :model.allObjects) {
+            if(object instanceof Booking){
+                Booking booking = (Booking)object;
+                isOk = isOk && booking.checkConstraints();
+                if(!isOk)
+                    return false;
+            }
+        }
         return true;
     }
 }

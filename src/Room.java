@@ -13,8 +13,6 @@ public class Room implements  ITestable{
         bookings = new HashMap<Date,Booking>();
     }
 
-
-
     public void setHotel(Hotel h){ hotel = h; }
 
     public void asignRoomCategory(RoomCategory roomCategory){
@@ -45,6 +43,15 @@ public class Room implements  ITestable{
     }
 
     public static boolean checkAllIntancesConstraints(Model model){
+        Boolean isOk = true;
+        for(Object object :model.allObjects) {
+            if(object instanceof Room){
+                Room room = (Room)object;
+                isOk = isOk && room.checkConstraints();
+                if(!isOk)
+                    return false;
+            }
+        }
         return true;
     }
 }
