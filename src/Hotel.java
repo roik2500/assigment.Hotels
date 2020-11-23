@@ -48,6 +48,28 @@ public class Hotel implements  ITestable{
 
     }
 
+    //constrain 10
+    public boolean avaregeRank()
+    {
+        double sumRank = 0; //sum ranks from all review
+        double count = 0;  //count all reviews
+        if(this.rate != 5)
+            return false;
+        for (Room room :rooms.values())
+        {
+            for(Booking booking: room.getBookings().values())
+            {
+                if(booking.getReview() != null)
+                {
+                    sumRank += booking.getReview().getRank();
+                    count++;
+                }
+            }
+        }
+        if(!((sumRank/count) > 7.5))
+            return false;
+        return true;
+    }
 
 
     public void addReservationSet(Client client,ReservationSet reservationSet){
