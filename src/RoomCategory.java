@@ -37,6 +37,7 @@ public class RoomCategory implements  ITestable{
 
     @Override
     public boolean checkConstraints() {
+        /*
         //Roy Peled code---constraint 5-VIPCheckservice
         if (type == RoomType.VIP) {
             for (Room r : rooms)
@@ -45,6 +46,8 @@ public class RoomCategory implements  ITestable{
                         return false;
                 }
         }
+
+         */
         return true;
     }
 

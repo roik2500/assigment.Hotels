@@ -1,3 +1,4 @@
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -55,6 +56,20 @@ public class Booking implements  ITestable{
 
     @Override
     public boolean checkConstraints() {
+
+        //Roy Peled code---constraint 5-VIPCheckservice
+        if (this.room!=null)
+        {
+            if(this.room.getRoomCategory().getType() == RoomCategory.RoomType.VIP)
+            {
+                    for (HotelService s : this.services) {
+                        if(!(VipService.class.equals(s.getClass())))
+                            return  false;
+                    }
+        }
+
+        }
+
         //constraint8 - room must be in his level or higher
         if (this.reservation.getRoomCategory().getType() == RoomCategory.RoomType.VIP)
             if (this.room.getRoomCategory().getType() != RoomCategory.RoomType.VIP)
