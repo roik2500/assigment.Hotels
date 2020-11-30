@@ -17,8 +17,9 @@ public class Main {
         m1.addObjectToModel(h2);
         m1.create_link_group_hotel(h1, g);
         m1.create_link_group_hotel(h2, g);
+        boolean f=m1.checkModelConstraints();
         System.out.println(m1.checkModelConstraints()); //should print false
-
+/*
         //check for constraint 7
         Model m = new Model();
         Client client1 = new Client(1,20,"Dolev","Tel Aviv");

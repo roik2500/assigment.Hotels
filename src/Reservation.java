@@ -52,19 +52,31 @@ public class Reservation implements  ITestable {
 
     @Override
     public boolean checkConstraints() {
+
         // my code---> constrain 3
         if(this.booking.getRoom()!=null){
             Room room = this.booking.getRoom();
             if(room.getHotel() != this.reservationSet.getHotel())
                 return false;
         }
+        /*
+        
         for (Room r : this.roomCategory.getRooms()) {
             if (r.getHotel() != this.booking.getRoom().getHotel()) {
                 return false;
             }
         }
+
+         */
         return true;
+
+
+
+
     }
+
+
+
 
     public static boolean checkAllIntancesConstraints(Model model) {
         Boolean isOk = true;

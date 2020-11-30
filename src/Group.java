@@ -48,8 +48,11 @@ public class Group implements  ITestable{
                     return false;
             }
         }
+
         return true;
     }
+
+
     public static boolean checkAllIntancesConstraints(Model model){
         Boolean isOk = true;
         for(Object object :model.allObjects) {
