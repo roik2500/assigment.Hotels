@@ -59,16 +59,12 @@ public class Booking implements  ITestable{
 
         //Roy Peled code---constraint 5-VIPCheckservice
         if (this.room!=null)
-        {
             if(this.room.getRoomCategory().getType() == RoomCategory.RoomType.VIP)
-            {
-                    for (HotelService s : this.services) {
-                        if(!(VipService.class.equals(s.getClass())))
-                            return  false;
-                    }
-        }
+                for (HotelService hs : this.services)
+                    if(!(hs.getService() instanceof VipService))
+                        return  false;
 
-        }
+
 
         //constraint8 - room must be in his level or higher
         if (this.reservation.getRoomCategory().getType() == RoomCategory.RoomType.VIP)
