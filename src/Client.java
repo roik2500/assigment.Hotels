@@ -46,18 +46,23 @@ public class Client implements  ITestable {
     public boolean checkConstraints() {
 
         //my code--constrain 2
-        if (reservationsHistory.size() > 4) {
-            int count = 0;
-            for (ReservationSet hs : this.reservationsHistory.values()) {
-                for (Reservation r : hs.getReservations()) {
-                    if (r.getRoomCategory().getType() == RoomCategory.RoomType.VIP) {
-                        count++; //AMIT
+
+        for(Hotel h:reservationsHistory.keySet()){
+            if (reservationsHistory.get(h).getReservations().size()> 4) {
+                int count = 0;
+                for (ReservationSet hs : this.reservationsHistory.values()) {
+                    for (Reservation r : hs.getReservations()) {
+                        if (r.getRoomCategory().getType() == RoomCategory.RoomType.VIP) {
+                            count++; //AMIT
+                        }
                     }
+                    if (count == 0) //at least 1 reservation in VIP -AMIT
+                        return false;
                 }
-                if (count == 0) //at least 1 reservation in VIP -AMIT
-                    return false;
             }
+
         }
+
         //constraint9
         for(ReservationSet reservationSet : this.reservationsHistory.values()){
             for(Reservation reservation: reservationSet.getReservations()){

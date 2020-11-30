@@ -59,7 +59,8 @@ public class Hotel implements  ITestable{
     @Override
     public boolean checkConstraints() {
         //constraint7-if you in hotel in las vegas you must be 21 or more
-        if(this.city.equals("LAS VEGAS")) {
+        String city = this.city.toLowerCase();
+        if (city.equals("les vegas")) {
             for (Client client : allReservation.keySet()) {
                 if (client.getAge() < 21)
                     return false;
@@ -78,23 +79,25 @@ public class Hotel implements  ITestable{
 
 
         //constrain 10
-        double sumRank = 0; //sum ranks from all review
-        double count = 0;  //count all reviews
-        if(this.rate != 5)
-            return false;
-        for (Room room :rooms.values())
-        {
-            for(Booking booking: room.getBookings().values())
-            {
-                if(booking.getReview() != null)
-                {
-                    sumRank += booking.getReview().getRank();
-                    count++;
+        if(allReservation.size()>0) {
+            double sumRank = 0; //sum ranks from all review
+            double count = 0;  //count all reviews
+            if (this.rate == 5) {
+                for (Room room : rooms.values()) {
+                    for (Booking booking : room.getBookings().values()) {
+                        if (booking.getReview() != null) {
+                            sumRank += booking.getReview().getRank();
+                            count++;
+                        }
+                    }
                 }
+                if(count == 0)
+                    return false;
+                if (!((sumRank / count) > 7.5))
+                    return false;
             }
         }
-        if(!((sumRank/count) > 7.5))
-            return false;
+
         //constraint 11
         for (Service s : services.keySet()) {
             for (Service s1 : services.keySet()) {
@@ -102,6 +105,7 @@ public class Hotel implements  ITestable{
                     return false;
             }
         }
+
         //constraint 12
         HashSet<Integer> years = new HashSet<Integer>();
         for (HotelService hotelService : this.services.values()) {
@@ -113,6 +117,7 @@ public class Hotel implements  ITestable{
             if (revenueYear(year) <= revenueYear(year - 1))
                 return false;
         }
+
         return true;
     }
 

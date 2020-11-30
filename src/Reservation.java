@@ -54,25 +54,13 @@ public class Reservation implements  ITestable {
     public boolean checkConstraints() {
 
         // my code---> constrain 3
-        if(this.booking.getRoom()!=null){
-            Room room = this.booking.getRoom();
-            if(room.getHotel() != this.reservationSet.getHotel())
-                return false;
-        }
-        /*
-        
-        for (Room r : this.roomCategory.getRooms()) {
-            if (r.getHotel() != this.booking.getRoom().getHotel()) {
-                return false;
+        if (this.booking != null)
+            if (this.booking.getRoom() != null) {
+                Room room = this.booking.getRoom();
+                if (!(room.getHotel().getName().equals(this.reservationSet.getHotel().getName())))
+                    return false;
             }
-        }
-
-         */
         return true;
-
-
-
-
     }
 
 

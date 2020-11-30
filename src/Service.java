@@ -29,15 +29,6 @@ public abstract class Service implements ITestable{
     }
 
     public static boolean checkAllIntancesConstraints(Model model){
-        Boolean isOk = true;
-        for(Object object :model.allObjects) {
-            if(object instanceof Service){
-                Service service = (Service)object;
-                isOk = isOk && service.checkConstraints();
-                if(!isOk)
-                    return false;
-            }
-        }
         return true;
     }
 }

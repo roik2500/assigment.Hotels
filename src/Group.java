@@ -37,18 +37,19 @@ public class Group implements  ITestable{
         }
 
         //Roy Peled code---constraint 4
-        Hotel hotel = hotels.stream().findFirst().get();
-        HashMap<Service, HotelService> serviceHashMap = hotel.getServices();
-        for (Hotel h : hotels) {
-            HashMap<Service, HotelService> serviceHashMap2 = h.getServices();
-            if (serviceHashMap.size() != serviceHashMap2.size())
-                return false;
-            for (Service s : serviceHashMap.keySet()) {
-                if (!serviceHashMap2.containsKey(s))
+        if(hotels != null) {
+            Hotel hotel = hotels.stream().findFirst().get();
+            HashMap<Service, HotelService> serviceHashMap = hotel.getServices();
+            for (Hotel h : hotels) {
+                HashMap<Service, HotelService> serviceHashMap2 = h.getServices();
+                if (serviceHashMap.size() != serviceHashMap2.size())
                     return false;
+                for (Service s : serviceHashMap.keySet()) {
+                    if (!serviceHashMap2.containsKey(s))
+                        return false;
+                }
             }
         }
-
         return true;
     }
 

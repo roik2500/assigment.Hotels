@@ -1,5 +1,4 @@
 import java.util.HashSet;
-import java.util.Set;
 
 public class RoomCategory implements  ITestable{
     HashSet<Room> rooms;
@@ -37,30 +36,10 @@ public class RoomCategory implements  ITestable{
 
     @Override
     public boolean checkConstraints() {
-        /*
-        //Roy Peled code---constraint 5-VIPCheckservice
-        if (type == RoomType.VIP) {
-            for (Room r : rooms)
-                for (Service s : r.getHotel().getServices().keySet()) {
-                    if (!(s instanceof VipService))
-                        return false;
-                }
-        }
-
-         */
         return true;
     }
 
     public static boolean checkAllIntancesConstraints(Model model){
-        Boolean isOk = true;
-        for(Object object :model.allObjects) {
-            if(object instanceof RoomCategory){
-                RoomCategory roomCategory = (RoomCategory)object;
-                isOk = isOk && roomCategory.checkConstraints();
-                if(!isOk)
-                    return false;
-            }
-        }
         return true;
     }
 }
