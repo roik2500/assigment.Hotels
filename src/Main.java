@@ -1,8 +1,9 @@
 public class Main {
 
     public static void main(String[] args) {
+
         // write your code here
-/*
+
         Model m1 = new Model();
         //check for constraint 1
         Group g = new Group(1);
